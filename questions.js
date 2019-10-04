@@ -1,26 +1,40 @@
 var questions = {
-    "question1": [
-      "yes",
-      "no1",
-      "no2",
-      "no3",
-    ],
-    "question2": [
-        "no1",
-        "no2",
-        "no3",
-        "yes",
-      ],
-      "question3": [
-        "no2",
-        "no3",
-        "yes",
-        "no1",
-      ],
-      "question4": [
-        "no3",
-        "yes",
-        "no1",
-        "no2",
-      ],
-  };
+  "Question 1":"answer1",
+  "Question 2":"answer2",
+  "Question 3":"answer3",
+  "Question 4":"answer4",
+  "Question 5":"answer5"
+};
+
+var possibleAnswers = {
+  "Question 1": [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4"
+  ],
+  "Question 2": [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4"
+  ],
+  "Question 3": [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4"
+  ],
+  "Question 4": [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4"
+  ],
+  "Question 5": [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4"
+  ]
+}
