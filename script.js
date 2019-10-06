@@ -34,13 +34,17 @@ var answersArea = document.querySelector("#answersDiv");
 var breakLineArea = document.querySelector("#breakLineDiv");
 var answer = "";
 var possibleAnswers = [];
+var userInitials = "";
+var allScores =[];
+var storedScores = JSON.parse(localStorage.getItem("userData"));
 
 function gameTime() {
+  if (storedScores !== null) {
+    allScores = storedScores;
+  }
   if (currentQuestion < questions.length) {
     var newQuestion = questions[currentQuestion].q;
-    // var newQuestionDiv = document.createElement('div');
     questionsArea.textContent = newQuestion;
-    // questionsArea.appendChild(newQuestionDiv);
     possibleAnswers = questions[currentQuestion].pas;
     answer = questions[currentQuestion].a;
 
@@ -53,10 +57,43 @@ function gameTime() {
 
     });
   } else {
-    console.log(timer.textContent);
-    alert("Game over man, game over!");
+    questionsArea.innerHTML = "";
+    answersArea.innerHTML = "";
+    var allDone = document.createElement('h1');
+    allDone.textContent = "All Done!";
+    questionsArea.appendChild(allDone);
+    var yourScore = document.createElement('p');
+    yourScore.textContent = "Your score was " + timer.textContent;
+    questionsArea.appendChild(yourScore);
+    var initials = document.createElement('span');
+    initials.textContent = "Enter your initials: ";
+    questionsArea.appendChild(initials);
+    var yourInput = document.createElement('input');
+    yourInput.className = 'initialsInput';
+    questionsArea.appendChild(yourInput);
+    var inputButton = document.createElement('button');
+    inputButton.className = 'inputButton';
+    inputButton.textContent = 'Submit';
+    questionsArea.appendChild(inputButton);
+    inputButton.addEventListener("click", function(event) {
+      userInitials = document.querySelector('.initialsInput').value;
+      scorePage(yourInput.value,timer.textContent);
+    });
   }
 };
+
+function scorePage(a, b) {
+  
+  var userData = {
+    inits: a,
+    userScore: b
+  };
+  allScores.push(userData);
+
+  localStorage.setItem("userData", JSON.stringify(allScores));
+  location.href = "scores.html";
+}
+
 
 var answerButtons = answersArea;
 answerButtons.addEventListener("click", function (event) {
@@ -64,6 +101,7 @@ answerButtons.addEventListener("click", function (event) {
   if (userClick === questions[currentQuestion].a) {
     breakLine(true);
   } else {
+    timer.textContent = timer.textContent - 10;
     breakLine(false);
   }
   currentQuestion++;
@@ -83,13 +121,11 @@ function breakLine(value) {
 function gameTimer() {
   timer.textContent = 100;
   var interval = setInterval(function () { timer.textContent--; 
-    if (timer.textContent === "0") {
+    if (timer.textContent === "0" || currentQuestion === questions.length) {
       clearInterval(interval);
     }
   }, 1000); 
 }
-
-
 
 startBtn.addEventListener("click", function () {
   questionsArea.innerHTML = "";
