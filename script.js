@@ -44,16 +44,21 @@ function gameTime() {
   }
   if (currentQuestion < questions.length) {
     var newQuestion = questions[currentQuestion].q;
-    questionsArea.textContent = newQuestion;
+    questionsArea.innerHTML = "<h1>" + newQuestion + "</h1>";
     possibleAnswers = questions[currentQuestion].pas;
     answer = questions[currentQuestion].a;
 
+    var answersList = document.createElement("ol");
     possibleAnswers.forEach(function (possibleAnswer) {
-      var answerBtn = document.createElement('button');
-      answerBtn.className = 'answerButton';
-      var answerText = document.createTextNode(possibleAnswer);
-      answerBtn.appendChild(answerText);
-      answersArea.append(answerBtn);
+        var answerItem = document.createElement('li');
+        var answerBtn = document.createElement('button');
+        answerBtn.className = 'btn btn-primary';
+        var answerText = document.createTextNode(possibleAnswer);
+        answerBtn.appendChild(answerText);
+        answerItem.appendChild(answerBtn);
+        answersList.appendChild(answerItem);
+        answersArea.append(answersList);
+
 
     });
   } else {
@@ -101,7 +106,7 @@ answerButtons.addEventListener("click", function (event) {
   if (userClick === questions[currentQuestion].a) {
     breakLine(true);
   } else {
-    timer.textContent = timer.textContent - 10;
+    timer.textContent = timer.textContent - 15;
     breakLine(false);
   }
   currentQuestion++;
@@ -119,7 +124,7 @@ function breakLine(value) {
 }
 
 function gameTimer() {
-  timer.textContent = 100;
+  timer.textContent = 75;
   var interval = setInterval(function () { timer.textContent--; 
     if (timer.textContent === "0" || currentQuestion === questions.length) {
       clearInterval(interval);

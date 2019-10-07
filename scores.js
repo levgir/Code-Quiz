@@ -5,16 +5,18 @@ var clearBtn = document.querySelector("#clearScores");
 
 
 function displayScores() {
-    var scoreList = document.createElement("ol");
-    for (var i = 0; i < storedScores.length; i++) {
-        var initials = storedScores[i].inits;
-        var scores = storedScores[i].userScore
-        var scoreEntry = document.createElement("li");
-        scoreEntry.innerHTML = initials + " - " + scores;
-        scoreList.appendChild(scoreEntry);
+    if (storedScores !== null) {
+        var scoreList = document.createElement("ol");
+        scoreList.className = "scoreListClass";
+        for (var i = 0; i < storedScores.length; i++) {
+            var initials = storedScores[i].inits;
+            var scores = storedScores[i].userScore
+            var scoreEntry = document.createElement("li");
+            scoreEntry.innerHTML = initials + " - " + scores;
+            scoreList.appendChild(scoreEntry);
+        }
+        highScoresArea.appendChild(scoreList);
     }
-    highScoresArea.appendChild(scoreList);
-
 };
 
 displayScores();
@@ -25,8 +27,6 @@ backBtn.addEventListener("click", function () {
 
 clearBtn.addEventListener("click", function () {
     highScoresArea.innerHTML = "";
-    storedScores = "";
-    var allScores = [];
-    localStorage.setItem("userData", JSON.stringify(allScores));
+    window.localStorage.clear();
 
 });
